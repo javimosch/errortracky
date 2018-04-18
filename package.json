@@ -9,9 +9,9 @@
     "release": "np"
   },
   "author": "Javier Leandro Arancibia <arancibiajav@gmail.com>",
-	"devDependencies": {
-		"np": "*"
-	},
+  "devDependencies": {
+    "np": "*"
+  },
   "dependencies": {
     "async": "~0.2.8",
     "body": "^5.1.0",
