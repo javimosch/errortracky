@@ -16,12 +16,20 @@ module.exports = (apiKey) => {
   }
   return {
     webhookMiddleware,
-    getStackFilesSpecs
+    getStackFilesSpecs,
+    nuxtWebhookMiddleware
   };
 };
 
 function throwError(msg){
   throw new Error('errortracky: '+msg);
+}
+
+function nuxtWebhookMiddleware(){
+  const express = require('express');
+  const app = express();
+  app.post('/', webhookMiddleware());
+  return app;
 }
 
 function webhookMiddleware() {
@@ -147,10 +155,10 @@ function getIdealLineForGlobSearch(line) {
   //left only one / (page1/index.js)
   if (line.split('/').length > 1) {
     s = line.split('/')
-    if (s.length - 1 > 0) {
-      for (var x = 0; x < s.length - 1; x++) {
-        s.splice(0, 1)
-      }
+    if (s.length>2) {
+      do{
+        s.splice(0,1);
+      }while(s.length>2)
     }
     line = s.join('/')
   }
