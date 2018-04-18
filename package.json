@@ -5,16 +5,18 @@
   "main": "index.js",
   "repository": "",
   "scripts": {
-    "dev": "nodemon --exec 'node test' --watch . -e js",
+    "dev": "nodemon --exec 'cross-env DEBUG_COLORS=true DEBUG=errortracky node test' --watch . -e js",
     "release": "np"
   },
   "author": "Javier Leandro Arancibia <arancibiajav@gmail.com>",
   "devDependencies": {
+    "cross-env": "^5.1.4",
     "np": "*"
   },
   "dependencies": {
     "async": "~0.2.8",
     "body": "^5.1.0",
+    "debug": "^3.1.0",
     "error-to-json": "^1.1.0",
     "express": "~3.2.4",
     "find": "^0.2.9",

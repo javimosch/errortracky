@@ -5,6 +5,14 @@ const jsonBody = require("body/json");
 const errToJSON = require('error-to-json');
 const cwd = process.cwd();
 const path = require('path');
+
+const debug = require('debug')('errortracky');
+const debugError = require('debug')('errortracky:error');
+const console = {
+  log: debug,
+  error: debugError
+};
+
 var state = {
   apiKey: ''
 };
@@ -125,7 +133,9 @@ async function getStackFilesSpecs(str,options = {}) {
 
 function globSearch(globString) {
   return new Promise((resolve, reject) => {
-    glob(globString, function(er, files) {
+    glob(globString,{
+      ignore:["**/node_modules/**"]
+    }, function(er, files) {
       if (er) {
         return reject(er);
       }
