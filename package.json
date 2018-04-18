@@ -1,0 +1,23 @@
+{
+  "name": "errortracky",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "repository": "",
+  "scripts": {
+    "dev": "nodemon --exec 'node test' --watch . -e js"
+  },
+  "author": "Javier Leandro Arancibia <arancibiajav@gmail.com>",
+  "dependencies": {
+    "async": "~0.2.8",
+    "body": "^5.1.0",
+    "error-to-json": "^1.1.0",
+    "express": "~3.2.4",
+    "find": "^0.2.9",
+    "glob": "^7.1.2",
+    "nodemon": "^1.17.3",
+    "promise-sequential": "^1.1.1",
+    "sander": "^0.6.0",
+    "socket.io": "~0.9.14"
+  }
+}
