@@ -3,6 +3,8 @@ const sander = require("sander");
 const sequential = require('promise-sequential');
 const jsonBody = require("body/json");
 const errToJSON = require('error-to-json');
+const cwd = process.cwd();
+const path = require('path');
 var state = {
   apiKey: ''
 };
@@ -37,7 +39,9 @@ function webhookMiddleware() {
 
     function send(err, body) {
       if (!err) {
-        getStackFilesSpecs(body.stack).then(spec => {
+        getStackFilesSpecs(body.stack, {
+          basePath: body.basePath?body.basePath:undefined
+        }).then(spec => {
           let result = spec;
           res.status(200).json(result);
         }).catch(err => {
@@ -58,7 +62,7 @@ function webhookMiddleware() {
 }
 
 
-async function getStackFilesSpecs(str) {
+async function getStackFilesSpecs(str,options = {}) {
   let specs = str.split(/\n/).map(str => {
     var line = str;
     if (str.trim().lastIndexOf('/') === -1) {
@@ -90,7 +94,9 @@ async function getStackFilesSpecs(str) {
 
   return await sequential(specs.map((spec) => {
     return async() => {
-      spec.serverPaths = await globSearch('**/' + spec.stackPath);
+      let globPath = path.join(cwd,options.basePath?(options.basePath+'/**/'):'/**/' , spec.stackPath);
+      console.log('Looking for',globPath);
+      spec.serverPaths = await globSearch(globPath);
 
       spec.files = await sequential(spec.serverPaths.map(path => {
         return async() => {
