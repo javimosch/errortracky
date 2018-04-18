@@ -5,9 +5,13 @@
   "main": "index.js",
   "repository": "",
   "scripts": {
-    "dev": "nodemon --exec 'node test' --watch . -e js"
+    "dev": "nodemon --exec 'node test' --watch . -e js",
+    "release": "np"
   },
   "author": "Javier Leandro Arancibia <arancibiajav@gmail.com>",
+	"devDependencies": {
+		"np": "*"
+	},
   "dependencies": {
     "async": "~0.2.8",
     "body": "^5.1.0",
