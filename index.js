@@ -140,6 +140,7 @@ function globSearch(globString) {
         return reject(er);
       }
       else {
+        files = files.filter(p=>p.indexOf('node_modules')===-1);
         resolve(files);
       }
     });
